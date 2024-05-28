@@ -1,65 +1,56 @@
-//elementos de lista que recebem os valores da API
-
-const cleanForm = (endereco) => {
-    
-    document.getElementById('endereco').value = ''
-    document.getElementById('bairro').value = ''
-    document.getElementById('cidade').value = ''
-    document.getElementById('estado').value = ''
-    document.getElementById('complemento').value = ''
-    document.getElementById('ibge').value = ''
+// Função para limpar os campos do formulário
+const cleanForm = () => {
+    document.getElementById('cep').value = '';
+    document.getElementById('endereco').value = '';
+    document.getElementById('complemento').value = '';
+    document.getElementById('bairro').value = '';
+    document.getElementById('cidade').value = '';
+    document.getElementById('estado').value = '';
+    document.getElementById('ibge').value = '';
 }
 
-
+// Função para preencher os campos do formulário com os dados do CEP
 const completeCep = (endereco) => {
-    document.getElementById('endereco').value = endereco.logradouro
-    document.getElementById('bairro').value = endereco.bairro
-    document.getElementById('cidade').value = endereco.localidade
-    document.getElementById('estado').value = endereco.uf
-    document.getElementById('complemento').value = endereco.complemento
-    document.getElementById('ibge').value = endereco.ibge
+    document.getElementById('endereco').value = endereco.logradouro || '';
+    document.getElementById('bairro').value = endereco.bairro || '';
+    document.getElementById('cidade').value = endereco.localidade || '';
+    document.getElementById('estado').value = endereco.uf || '';
+    document.getElementById('complemento').value = endereco.complemento || '';
+    document.getElementById('ibge').value = endereco.ibge || '';
 }
 
-const validateCep = (cep) => 
-    cep.length == 8 && /^[0-9]+$/.test(cep)
+// Função para validar o CEP
+const validateCep = (cep) => cep.length === 8 && /^[0-9]+$/.test(cep);
 
-// busca pelas informações na API
-const consultaCep = async() => {
-   const cep = document.querySelector('#cep').value 
-   const url = (`https://viacep.com.br/ws/${cep}/json/`)
-   if (validateCep(cep)){
-   const data = await fetch(url)
-   const endereco = await data.json();
+// Função para consultar o CEP na API
+const consultaCep = async () => {
+    const cep = document.querySelector('#cep').value;
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
 
-    //caso o Cep nao exista
-        if (endereco.hasOwnProperty('erro')){
-            console.log(endereco)
-            alert('CEP não encontrado!')
-            cleanForm(endereco)
-        }else {
-            completeCep(endereco)
-        }   
+    if (validateCep(cep)) {
+        try {
+            const response = await fetch(url);
+            const endereco = await response.json();
+
+            if (endereco.hasOwnProperty('erro')) {
+                alert('CEP não encontrado!');
+                cleanForm();
+            } else {
+                completeCep(endereco);
+            }
+        } catch (error) {
+            console.error('Erro ao consultar CEP:', error);
+            alert('Erro ao consultar CEP!');
+            cleanForm();
+        }
     } else {
-        alert('CEP Incorreto ou Incompleto!')
-        cleanForm(endereco)
+        alert('CEP incorreto ou incompleto!');
+        cleanForm();
     }
 }
 
-
+// Função para salvar os dados na localStorage
 function saveData() {
-    // Criando linha
-    const newRow = document.createElement('tr');
-    
-    // Criando colunas
-    const cepTd = document.createElement('td');
-    const enderecoTd = document.createElement('td');
-    const complementoTd = document.createElement('td');
-    const bairroTd = document.createElement('td');
-    const cidadeTd = document.createElement('td');
-    const estadoTd = document.createElement('td');
-    const ibgeTd = document.createElement('td');
-
-    // Obtendo os valores dos campos de formulário
     const cepValue = document.getElementById('cep').value;
     const enderecoValue = document.getElementById('endereco').value;
     const complementoValue = document.getElementById('complemento').value;
@@ -68,49 +59,38 @@ function saveData() {
     const estadoValue = document.getElementById('estado').value;
     const ibgeValue = document.getElementById('ibge').value;
 
-    // Adicionando conteúdos nas colunas
-    cepTd.textContent = cepValue;
-    enderecoTd.textContent = enderecoValue;
-    complementoTd.textContent = complementoValue;
-    bairroTd.textContent = bairroValue;
-    cidadeTd.textContent = cidadeValue;
-    estadoTd.textContent = estadoValue;
-    ibgeTd.textContent = ibgeValue;
+    const formData = {
+        cep: cepValue,
+        endereco: enderecoValue,
+        complemento: complementoValue,
+        bairro: bairroValue,
+        cidade: cidadeValue,
+        estado: estadoValue,
+        ibge: ibgeValue
+    };
 
-    // Adicionando as colunas como filhos na linha
-    newRow.appendChild(cepTd);
-    newRow.appendChild(enderecoTd);
-    newRow.appendChild(complementoTd);
-    newRow.appendChild(bairroTd);
-    newRow.appendChild(cidadeTd);
-    newRow.appendChild(estadoTd);
-    newRow.appendChild(ibgeTd);
+    const savedData = JSON.parse(localStorage.getItem('corpoTabela')) || [];
+    savedData.push(formData);
+    localStorage.setItem('corpoTabela', JSON.stringify(savedData));
 
-    // Adicionando a linha filha na tabela
-    document.getElementById('corpoTabela').appendChild(newRow);
-    salvarTabela();
+    carregarCep();
 }
 
-function salvarTabela(){
-    const saveData = []; // Renomeie para evitar conflito com a variável saveData definida anteriormente
-    const corpoTabela = document.getElementById("corpoTabela");
-    corpoTabela.querySelectorAll("tr").forEach(item => { 
-        const endereco = item.querySelector("td:nth-child(2)").textContent; // Corrigido para selecionar o texto da segunda coluna (endereço)
-        saveData.push({ texto: endereco }); // Corrigido para adicionar o objeto com o texto do endereço
-    });
-    localStorage.setItem('corpoTabela', JSON.stringify(saveData)); // Corrigido para salvar saveData no localStorage
-}
-
+// Função para carregar os dados na tabela
 function carregarCep() {
     const corpoTabela = document.getElementById("corpoTabela");
+    corpoTabela.innerHTML = ''; // Limpa o conteúdo atual da tabela
     const savedData = JSON.parse(localStorage.getItem('corpoTabela')) || [];
-    savedData.forEach(item => { // Iterar sobre os itens salvos e adicioná-los à tabela
+
+    savedData.forEach(formData => {
         const newRow = document.createElement('tr');
-        const enderecoTd = document.createElement('td');
-        enderecoTd.textContent = item.texto; // Adiciona o texto do endereço na célula
-        newRow.appendChild(enderecoTd);
-        corpoTabela.appendChild(newRow); // Adiciona a nova linha à tabela
-    });    
+        Object.values(formData).forEach(value => {
+            const cell = document.createElement('td');
+            cell.textContent = value;
+            newRow.appendChild(cell);
+        });
+        corpoTabela.appendChild(newRow);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function() {

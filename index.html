@@ -7,9 +7,8 @@
     <title>Consulta de Cep</title>
 </head>
 <body>
-    <main class="container">
         <h1 class="title">Consultar Cep</h1>
-        <div class="row">
+        <div class="row" class="container">
             <div class="inputbox">
                 <input onblur= "consultaCep()" type="text" id="cep"  required>
                 <label for="cep">Cep</label>
@@ -40,7 +39,7 @@
             </div>
         </div>
         <div class="row">
-            <button id="btn_salvar" onclick="saveData()">Salvar</button>
+            <button id="btn_salvar" onclick="saveData()" class="salvar">Salvar</button>
         </div>
     </main>
 
