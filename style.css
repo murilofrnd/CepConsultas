@@ -1,21 +1,71 @@
-.title{
+.title {
     text-align: center;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Centraliza os itens verticalmente */
     width: 200px;
+    margin: auto; /* Centraliza o contêiner horizontalmente */
+    margin-top: 50px; /* Espaçamento superior ajustável */
+    margin-inline: auto;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 30px;
+    padding-inline: 400px;
+    background-color: rgb(43, 119, 60);
 }
 
-.inputbox{
-    margin-bottom: 10px;
+.inputbox {
+    margin-bottom: 5px;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
-.row{
+.label {
+    text-align: left;
+}
+
+.row {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 20px;
+}
+
+.linha {
+    border-color: black;
+}
+
+.tabela{
+    
+    border-radius: 10px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-inline: auto;
+}
+
+.tabela thead th {
+    background-color: #215f92;
+    border: 1px solid #0015ce;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Estilos para as células de dados */
+.tabela tbody td {
+    text-align: center;
+    border: 1px solid #0f171dfb;
+    padding: 8px;
+}
+
+/* Estilos para as linhas alternadas */
+.tabela tbody tr:nth-child(even) {
+    background-color: #939394ad;
+}
+
+/* Estilos para a borda da tabela */
+.linha {
+    border-color: rgb(0, 0, 0);
 }

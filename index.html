@@ -1,18 +1,18 @@
-<!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>Consulta de Cep</title>
 </head>
 <body>
-        <h1 class="title">Consultar Cep</h1>
-        <div class="row" class="container">
-            <div class="inputbox">
-                <input onblur= "consultaCep()" type="text" id="cep"  required>
-                <label for="cep">Cep</label>
-            </div>
+    <h1 class="title">Consultar Cep</h1>
+    <div class="container">
+        <div class="inputbox">
+            <input onblur="consultaCep()" type="text" id="cep" required>
+            <label for="cep">Cep</label>
+        </div>
             <div class="inputbox">
                 <input type="text" id="endereco"  required>
                 <label for="endereco">Endereço</label>
@@ -30,7 +30,7 @@
                 <label for="cidade">Cidade</label>
             </div>
             <div class="inputbox">
-                <input type="text" id="estado"  required>
+                <input type="text" id="estado" required>
                 <label for="estado">Estado</label>
             </div>
             <div class="inputbox">
@@ -43,7 +43,7 @@
         </div>
     </main>
 
-    <table id="cepsSalvos">
+    <table id="cepsSalvos" class="tabela">
         <thead>
             <tr>
                 <th>Cep</th>
