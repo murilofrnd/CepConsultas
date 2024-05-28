@@ -8,10 +8,10 @@
 </head>
 <body>
     <main class="container">
-        <h1 class="title">Consulta Cep</h1>
+        <h1 class="title">Consultar Cep</h1>
         <div class="row">
             <div class="inputbox">
-                <input onblur="consultaCep()" type="text" id="cep"  required>
+                <input onblur= "consultaCep()" type="text" id="cep"  required>
                 <label for="cep">Cep</label>
             </div>
             <div class="inputbox">
@@ -40,9 +40,24 @@
             </div>
         </div>
         <div class="row">
-            <button id="btn">Salvar</button>
+            <button id="btn_salvar" onclick="saveData()">Salvar</button>
         </div>
     </main>
+
+    <table id="cepsSalvos">
+        <thead>
+            <tr>
+                <th>Cep</th>
+                    <th>Endereço</th>
+                        <th>Complemento</th>
+                            <th>Bairro</th>
+                        <th>Cidade</th>
+                    <th>Estado</th>  
+                <th>IBGE</th>
+            </tr>
+        </thead>
+        <tbody id="corpoTabela"></tbody>
+    </table>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>    
     <script src="app.js"></script>
 </body>
