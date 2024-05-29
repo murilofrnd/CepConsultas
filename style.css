@@ -13,8 +13,8 @@
     border: 1px solid black;
     border-radius: 20px;
     padding: 30px;
-    padding-inline: 400px;
-    background-color: rgb(43, 119, 60);
+    padding-inline: 300px;
+    background-color: rgb(2, 99, 160);
 }
 
 .inputbox {
@@ -23,8 +23,9 @@
     border-radius: 10px;
 }
 
-.label {
-    text-align: left;
+.inputbox input {
+    border-radius: 5px;
+    border-style: none;
 }
 
 .row {
@@ -68,4 +69,11 @@
 /* Estilos para a borda da tabela */
 .linha {
     border-color: rgb(0, 0, 0);
+}
+
+.salvar{
+    background-color: rgba(26, 198, 4, 0.831);
+    padding: 5px;
+    padding-inline: 20px;
+    border-radius: 10px;
 }
