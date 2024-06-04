@@ -1,5 +1,6 @@
 .title {
     text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -21,6 +22,7 @@
     margin-bottom: 5px;
     margin-top: 10px;
     border-radius: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .inputbox input {
@@ -48,6 +50,7 @@
 }
 
 .tabela thead th {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: #215f92;
     border: 1px solid #0015ce;
     padding: 8px;
@@ -56,6 +59,7 @@
 
 /* Estilos para as células de dados */
 .tabela tbody td {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
     border: 1px solid #0f171dfb;
     padding: 8px;
@@ -76,4 +80,5 @@
     padding: 5px;
     padding-inline: 20px;
     border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
